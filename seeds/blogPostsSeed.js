@@ -11,6 +11,12 @@ const blogPostData = [
         title: 'Everyday Gets Easier Coding',
         body: 'Just little by little makes the biggest difference.'
     },
+    {   
+        post_creator: 2,
+        title: 'Everyday Gets Easier Coding',
+        body: 'Just little by little makes the biggest difference.'
+    },
+
 ]
 
 const seedBlogPosts = () => blogPost.bulkCreate(blogPostData);
