@@ -5,6 +5,7 @@ const router = require('express').Router()
 
 // html routes
 router.get('/', async (req, res) =>{
+  
     try{  
       const allBlogs = await blogPost.findAll({
         attributes: ['body', 'title', 'post_creator', 'dateCreated'],
@@ -17,13 +18,24 @@ router.get('/', async (req, res) =>{
         
         return post.get({ plain: true })
       })
-      console.log(serializedBlogs)
-       res.render('Home', {
-        secondarytitle: 'The Tech Blog',
-        posts: serializedBlogs,
+      if(req.session.loggedIn){
+    const loggedInUser = await User.findByPk(req.session.user_id)
+    loggedInUser.get({plain:true})
+        res.render('Home', {
+         secondarytitle: 'The Tech Blog',
+         posts: serializedBlogs,
+         loggedInUser: loggedInUser.userName,
+         
+       })
+
+      } else {
+        res.render('Home', {
+          secondarytitle: 'The Tech Blog',
+          posts: serializedBlogs,
+        })
+      }
         
        
-      })
   } catch(e) {
       res.json(e).status(404)
   }})
@@ -31,13 +43,11 @@ router.get('/', async (req, res) =>{
 
 //This route gets the dashboard page
 router.get('/dashboard', async (req, res) => {
-  const loggedInUser = await User.findByPk(req.session.user_id)
-  loggedInUser.get({plain:true})
-
-  console.log(loggedInUser.userName)
   
   if(req.session.loggedIn){
-  const loggedInUserPosts = await blogPost.findAll({
+    const loggedInUser = await User.findByPk(req.session.user_id)
+    loggedInUser.get({plain:true})
+    const loggedInUserPosts = await blogPost.findAll({
     where: {
       post_creator: req.session.user_id
     }
@@ -60,8 +70,18 @@ router.get('/dashboard', async (req, res) => {
       res.json(e)
     }
 
-  }
-})
+  } else {
+    try {
+      res.render('dashboard', {
+          secondarytitle: 'Your Dashboard',
+          loggedInUser: 'Not Currently Signed In',
+          loggedIn: true
+   
+          
+      })
+  } catch (e){
+    console.log(e)
+  }}})
 
 
 router.get('/login', (req, res) => res.render('login', {
@@ -74,6 +94,16 @@ router.get('/signUpPage', (req, res) => {
     secondarytitle: 'The Tech Blog',
 
   })
+})
+
+router.get('/createNewPost', (req, res) => {
+  if(req.session.loggedIn){
+    res.render('createNewPost', {
+      secondarytitle: 'The Tech Blog'
+    })
+  } else {
+    res.redirect('/login')
+  }
 })
 //When the user is logged in then the login button dissappears from the dashboard view
 

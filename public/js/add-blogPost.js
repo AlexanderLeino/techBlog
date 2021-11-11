@@ -5,6 +5,9 @@ const authorInput = document.querySelector('input[name="author"]')
 const categoryInput = document.querySelector('input[name="category"]')
 const contentInput = document.querySelector('textarea[name="content"]')
 
+
+
+
 form.addEventListener('submit', e => {
   e.preventDefault()
   const data = {
