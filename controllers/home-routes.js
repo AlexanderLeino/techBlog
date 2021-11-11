@@ -18,9 +18,11 @@ router.get('/', async (req, res) =>{
         return post.get({ plain: true })
       })
       console.log(serializedBlogs)
-      res.render('Home', {
-        secondarytitle: 'Home',
+       res.render('Home', {
+        secondarytitle: 'The Tech Blog',
         posts: serializedBlogs,
+        
+       
       })
   } catch(e) {
       res.json(e).status(404)
@@ -29,11 +31,27 @@ router.get('/', async (req, res) =>{
 
 //This route gets the dashboard page
 router.get('/dashboard', async (req, res) => {
-   
+  const loggedInUser = await User.findByPk(req.session.user_id)
+  loggedInUser.get({plain:true})
+
+  console.log(loggedInUser.userName)
+  
+  if(req.session.loggedIn){
+  const loggedInUserPosts = await blogPost.findAll({
+    where: {
+      post_creator: req.session.user_id
+    }
+  })
+  const userBlogs =  await loggedInUserPosts.map( post => {
+    return post.get({plain:true})
+  })
     try {
         res.render('dashboard', {
-            secondarytitle: 'Tech Blog',
-            loggedIn: true
+            secondarytitle: 'Your Dashboard',
+            loggedInUser: loggedInUser.userName,
+            post: userBlogs
+            
+            
             
             
         })
@@ -41,6 +59,8 @@ router.get('/dashboard', async (req, res) => {
     }catch(e){
       res.json(e)
     }
+
+  }
 })
 
 
