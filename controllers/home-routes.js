@@ -130,6 +130,15 @@ router.get('/login', (req, res) => res.render('login', {
     secondarytitle: 'The Tech Blog',
     signingIn: true}
 ))
+
+
+router.get(`/edit`, (req, res) => {
+      res.render('editPost', {
+      secondaryTitle: 'The Tech Blog'
+    })
+})
+
+
 //TODO: Once the user logins in they need to be redirected to the dashboard
 
 //TODO: On the login page if the user clicks on the Sign Up Instead then we redirect them to the Sign Up box and give them the option to log in instead in place of where the sign up instead click link is. 

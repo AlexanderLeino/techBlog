@@ -11,21 +11,21 @@ router.post('/', withAuth, async (req, res) => {
   console.log(req.session)
   
   try {
-      const newPost = await blogPost.create({
-        title: req.body.blogTitle,
-        body: req.body.blogBody,
-        post_creator: req.session.user_id,
-      });
-     
-  
-      res.status(200).json(newPost);
-    } catch (err) {
-      console.log(err)
-      res.status(500).json(err);
-    }
-  });
+    const newPost = await blogPost.create({
+      title: req.body.blogTitle,
+      body: req.body.blogBody,
+      post_creator: req.session.user_id,
+    });
+    
+    
+    res.status(200).json(newPost);
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err);
+  }
+});
 
-  
+
 
 //delete posts //withAuth
 router.delete('/:id', async (req, res) => {
@@ -48,13 +48,4 @@ router.delete('/:id', async (req, res) => {
     }
   });
 
-  router.put(`/:id`, (req, res) => {
-    console.log(req.params.id) 
-    console.log('put route has been hit')
-  try {
-      res.render('editPost')
-      }catch (err) {
-    res.status(500).json(err);
-  }
-});
   module.exports = router;
