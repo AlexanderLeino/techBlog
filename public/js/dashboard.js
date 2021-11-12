@@ -3,4 +3,3 @@ newPostBtn.addEventListener('click', ()=> {
     console.log('The button has been clicked')
 })
 
-module.exports = newPostBtn

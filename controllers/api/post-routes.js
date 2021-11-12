@@ -3,49 +3,18 @@ const { Post, User } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 
-//view all user posts
-router.get('/', async (req, res) => {
-
-  try {
-    const dbPostData = await Post.findAll({
-      
-      attributes: ['body', 'roots', 'user_id', 'id'],
-      include: [{
-        model: User,
-        attributes: ['userName'],
-        
-      }],
-      
-    });
-    res.json(dbPostData)
-    
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-//Getting one post
-//Getting one post
-router.put('/:id', async (req, res) => {
-
-  try {
-    const postToUpdate = await Post.findByPk(req.params.id);
-    const updatedRoot = await postToUpdate.increment('roots', {by: 1});
-    res.json(updatedRoot)
-    
-  } catch (err) {
-    res.status(500).json(err);
-  }
- 
-})
-
-
-
 //create new post 
 router.post('/', withAuth, async (req, res) => {
+  console.log('The Post route has been hit!!!!!')
+    console.log(req.body.title)
+    console.log(req.body.body)
+    console.log(req.session.user_id)
+
   try {
       const newPost = await Post.create({
-        user_id: req.session.user_id,
-        body: req.body.newPostInput,
+        title: req.body.title,
+        body: req.body.body,
+        post_creator: req.session.user_id
       });
      
   

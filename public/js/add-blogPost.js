@@ -1,30 +1,26 @@
 
-const form = document.getElementById('add-post')
-const nameInput = document.querySelector('input[name="name"]')
-const authorInput = document.querySelector('input[name="author"]')
-const categoryInput = document.querySelector('input[name="category"]')
-const contentInput = document.querySelector('textarea[name="content"]')
+const form = document.querySelector('form')
+const blogTitle = document.getElementById('blogTitle').value
+const blogBody = document.getElementById('blogBody').value
+const createPostBtn = document.getElementById('createPostBtn')
 
 
 
-
-form.addEventListener('submit', e => {
-  e.preventDefault()
-  const data = {
-    name: nameInput.value,
-    author: authorInput.value,
-    category: categoryInput.value,
-    content: contentInput.value,
+form.addEventListener('submit', async e => {
+  e.preventDefault() 
+  const newPostData = {
+    title: blogTitle,
+    body: blogBody,
   }
-  console.log(data)
-  fetch('/api/blogpost', {
+  
+  await fetch('/api/post', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-    .then(response => response.text())
-    .then(text => alert(text))
-    .catch(err => console.log(err))
+    }, 
+    body: JSON.stringify(newPostData),
+  }) 
+      .catch((e) => {
+        console.log(e)
+      })
 })
