@@ -1,16 +1,16 @@
 
 const form = document.querySelector('form')
-let blogTitle = document.getElementById('blogTitle').value.trim()
-let blogBody = document.getElementById('blogBody').value.trim()
+
 const createPostBtn = document.getElementById('createPostBtn')
 
 
 
-form.addEventListener('submit', async e => {
+form.addEventListener('submit', e => {
   e.preventDefault() 
-  
+  let blogTitle = document.getElementById('blogTitle').value.trim()
+  let blogBody = document.getElementById('blogBody').value.trim()
   console.log(blogTitle, blogBody)
-  await fetch('/api/post', {
+    fetch('/api/post', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

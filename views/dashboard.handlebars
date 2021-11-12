@@ -14,6 +14,9 @@
         width: fit-content;
         padding: .25rem;
     }
+    a {
+        text-decoration: none;
+    }
 
 </style>
 {{#if loggedIn}}
@@ -22,9 +25,11 @@
 </div>
 {{/if}}
 {{#each post}}
-{{>miniBlogCard}}
+
+<a href='/edit'>{{>miniBlogCard}}</a>
 {{/each}}
 <div class="container d-flex justify-content-center">
 <a href='/createNewPost'><button id='newPostBtn'>+ New Post</button></a>
 </div>
 <script src='/js/dashboard.js'></script>
+<script src='/js/editPost.js'></script>
