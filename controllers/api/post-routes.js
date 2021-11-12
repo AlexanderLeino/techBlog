@@ -1,26 +1,26 @@
 const router = require('express').Router();
-const { Post, User } = require('../../models');
+const { User, blogPost } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 
 //create new post 
 router.post('/', withAuth, async (req, res) => {
   console.log('The Post route has been hit!!!!!')
-    console.log(req.body.title)
-    console.log(req.body.body)
-    console.log(req.session.user_id)
-
+  console.log(req.body.blogBody)
+  console.log(req.body.blogTitle)
+  console.log(req.session)
+  
   try {
-      const newPost = await Post.create({
-        title: req.body.title,
-        body: req.body.body,
-        post_creator: req.session.user_id
+      const newPost = await blogPost.create({
+        title: req.body.blogTitle,
+        body: req.body.blogBody,
+        post_creator: req.session.user_id,
       });
      
   
       res.status(200).json(newPost);
     } catch (err) {
-      
+      console.log(err)
       res.status(500).json(err);
     }
   });
