@@ -134,7 +134,7 @@ router.get('/login', (req, res) => res.render('login', {
 
 router.get(`/edit`, (req, res) => {
       res.render('editPost', {
-      secondaryTitle: 'The Tech Blog'
+      secondarytitle: 'The Tech Blog'
     })
 })
 
