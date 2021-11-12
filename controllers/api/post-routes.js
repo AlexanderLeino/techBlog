@@ -25,6 +25,8 @@ router.post('/', withAuth, async (req, res) => {
     }
   });
 
+  
+
 //delete posts //withAuth
 router.delete('/:id', async (req, res) => {
     try {
@@ -46,21 +48,11 @@ router.delete('/:id', async (req, res) => {
     }
   });
 
-  router.put(`/:id`,  async (req, res) => { 
+  router.put(`/:id`, (req, res) => {
+    console.log(req.params.id) 
+    console.log('put route has been hit')
   try {
-    const updatedRoot = await Post.increment('roots', {by: 1},
-      
-      {
-        where: {
-          id: req.params.id
-        },
-        attributes: ['body', 'roots', 'id'],
-        include: [{
-          model: User,
-          attributes: ['userName']
-        }]
-      });
-      res.json(updatedRoot)
+      res.render('editPost')
       }catch (err) {
     res.status(500).json(err);
   }

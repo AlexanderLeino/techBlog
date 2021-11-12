@@ -167,12 +167,6 @@ router.get('/login', (req, res) => res.render('login', {
 //   res.status(200).send('Post added succesfully!')
 // })
 
-router.get('/edit', (req, res) => {
-  res.render('editPost',{
-    secondarytitle: 'The Tech Blog',
-
-  })
-})
 
 
 
