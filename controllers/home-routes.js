@@ -132,9 +132,16 @@ router.get('/login', (req, res) => res.render('login', {
 ))
 
 
-router.get(`/edit`, (req, res) => {
+router.get(`/edit/:id`, async (req, res) => {
+      const selectedPost = await blogPost.findByPk(req.params.id, {
+        attributes: ['title', 'body']
+      })
+      
+      console.log(selectedPost)
       res.render('editPost', {
-      secondarytitle: 'The Tech Blog'
+      secondarytitle: 'The Tech Blog',
+      title: selectedPost.title,
+      body: selectedPost.body
     })
 })
 

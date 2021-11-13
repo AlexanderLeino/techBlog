@@ -10,20 +10,25 @@
     .createPostBtn {
     background-color: #321414;
     }
+    textarea{
+      width: 100%;
+    }
 </style>
 <div class='container mt-3'>
 <form>
   <div class="mb-3">
-    <label  class="form-label"> Blog Title</label>
-    <input type="text" class="form-control" id="blogTitle">
+    <label  class="form-label"> Blog Title</label><br>
+    <textarea id='titleBox'>{{title}}</textarea>
   </div>
   <div class="mb-3">
-    <label class="form-label">Blog Body</label>
-    <input type="text" class="form-control" id="blogBody">
+    <label class="form-label">Blog Body</label><br>
+  <div>
+   <textarea id='bodyBox'>{{body}}</textarea>
   </div>
   <div class='container d-flex flex-column'>
-  <button type="submit" class="btn createPostBtn btn-primary">Update</button>
-  <button type="submit" class="btn createPostBtn btn-primary mt-2">Delete</button>
+  <button type="submit" class="btn btn-primary" id='updatePostBtn'>Update</button>
+  <button type="submit" class="btn deletePostBtn btn-primary mt-2" id='deletePostBtn'>Delete</button>
   </div>
 </form>
 </div>
+<script src='/js/editpost.js'></script>
