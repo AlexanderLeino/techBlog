@@ -1,5 +1,5 @@
 const blogPost = document.getElementsByClassName('blogPost')
-console.log(blogPost)
+
 
 for (let i = 0; i < blogPost.length; i++){
     blogPost[i].addEventListener('click', (e)=> {
