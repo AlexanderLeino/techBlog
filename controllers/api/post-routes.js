@@ -48,4 +48,30 @@ router.delete('/edit/:id', withAuth, async (req, res) => {
     }
   });
 
+  router.put('/edit/:id', withAuth, async (req, res) => {
+    console.log('Your put route was hit')
+    console.log(req.body)
+    try {
+      const postData = await blogPost.update({
+        title: req.body.title,
+        body: req.body.body},
+        
+        {
+          where: {
+          id: req.params.id,
+        }
+         
+      });
+  
+      if (!postData) {
+        res.status(404).json({ message: 'No post found with this id!' });
+        return;
+      }
+  
+      res.status(200).json(postData);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
   module.exports = router;
