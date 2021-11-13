@@ -28,9 +28,9 @@ router.post('/', withAuth, async (req, res) => {
 
 
 //delete posts //withAuth
-router.delete('/:id', async (req, res) => {
+router.delete('/edit/:id', withAuth, async (req, res) => {
     try {
-      const postData = await Post.destroy({
+      const postData = await blogPost.destroy({
         where: {
           id: req.params.id,
          

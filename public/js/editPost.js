@@ -6,6 +6,6 @@ console.log(deleteBtn, updateBtn)
 
 deleteBtn.addEventListener('click', (e)=> {
     e.preventDefault()
+    fetch(`/api/post/edit/${id}`)
    
-    console.log(currentPost)
 })
